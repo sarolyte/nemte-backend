@@ -7,7 +7,7 @@ export const validateSchema = (schema) => {
             return res.status(400).json({error: messages})
         }
 
-        req.validateSchema = value;
+        req.validatedBody = value;
         next();
     }
 }
