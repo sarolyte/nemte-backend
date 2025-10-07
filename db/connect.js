@@ -2,7 +2,8 @@ import { MongoClient} from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const connectionString = 'mongodb+srv://admin:lalaLand.1@cluster0.rv055z4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const connectionString = process.env.MONGODB_URI
+
 let db;
 
 
