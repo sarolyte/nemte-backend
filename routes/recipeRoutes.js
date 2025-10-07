@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { validateSchema } from '../middleware/validateSchema.js';
 import { recipeSchema } from '../schemas/recipeSchema.js';
-import { createRecipe } from '../controllers/recipeController.js';
+import { allRecipes, createRecipe } from '../controllers/recipeController.js';
 
 const recipeRouter = Router();
 
 recipeRouter.post('/recipe', validateSchema(recipeSchema), createRecipe);
+recipeRouter.get('/recipes', allRecipes);
 
 
 export default recipeRouter;
