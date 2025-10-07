@@ -5,12 +5,15 @@ export const createRecipe = async (req, res) => {
     const db = getDB();
     const recipeData = req.validatedBody;
 
+    recipeData.createdAt = new Date();
+
     try {
         const savedRecipe = await db.collection('recipes').insertOne(recipeData);
         res.status(200).json({
             message: 'Recipe was added',
             recipeId: savedRecipe.insertedId,
-            recipeName: recipeData.name
+            recipeName: recipeData.name,
+            createdAt: recipeData.createdAt
         });
     } catch (err) {
         console.error('Error saving recipe:', err.message)
