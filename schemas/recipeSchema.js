@@ -5,6 +5,7 @@ import { durationSchema } from "./durationSchema.js";
 
 export const recipeSchema = Joi.object({
   createdAt: Joi.date().optional(),
+  updatedAt: Joi.date().optional(),
   name: Joi.string().min(5).max(55).required(),
   cookingDuration: durationSchema.required(),
   cleaningTime: durationSchema.required(),

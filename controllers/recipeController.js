@@ -65,7 +65,7 @@ export const getRecipeById = async (req, res) => {
         const recipe = await db.collection('recipes').findOne({_id: new ObjectId(recipeId)});
 
         if (!recipe) {
-            return res.status(404).json({ message: 'No recips was found with this ID' })
+            return res.status(404).json({ message: 'No recipes were found with this ID' })
         }
 
         res.status(200).json({
@@ -77,4 +77,39 @@ export const getRecipeById = async (req, res) => {
         console.error('Error fetching recipe:', err.message)
         res.status(500).json({err: 'Unable to fetch recipe'});
     }
+}
+
+//PUT
+export const updateRecipe = async (req, res) => {
+    const recipeId = req.params.id;
+
+    if (!ObjectId.isValid(recipeId)) {
+            return res.status(400).json({ error: 'Invalid ID format' })
+    };
+
+    const db = getDB();
+    const updateData = req.validatedBody;
+
+    updateData.updatedAt = new Date();
+
+    try {
+        const result = await db.collection('recipes').updateOne(
+            { _id: ObjectId.createFromHexString(recipeId) },
+            { $set: updateData }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ message: 'No recipe was found' })
+        }
+
+        res.status(200).json({
+            message: 'Recipe updated successfully',
+            recipeId
+        })
+
+    } catch (err) {
+        console.error('Error updating recipe:', err.message)
+        res.status(500).json({err: 'Failed to update recipe'});
+    }
+
 }
