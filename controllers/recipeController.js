@@ -113,3 +113,33 @@ export const updateRecipe = async (req, res) => {
     }
 
 }
+
+//DELETE
+export const deleteRecipe = async (req, res) => {
+    const recipeId = req.params.id;
+
+    if (!ObjectId.isValid(recipeId)) {
+            return res.status(400).json({ error: 'Invalid ID format' })
+    };
+
+    const db = getDB();
+
+    try {
+        const result = await db.collection('recipes').deleteOne(
+            { _id: ObjectId.createFromHexString(recipeId) }
+        );
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'No recipe was found' })
+        }
+
+        res.status(200).json({
+            message: `Recipe was deleted`,
+            result
+        })
+    } catch (err) {
+        console.error('Error deleting recipe:', err.message)
+        res.status(500).json({err: 'Unable to delete the recipe'});
+    }
+
+}
