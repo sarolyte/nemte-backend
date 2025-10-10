@@ -7,6 +7,8 @@ export const recipeSchema = Joi.object({
   createdAt: Joi.date().optional(),
   updatedAt: Joi.date().optional(),
   name: Joi.string().min(5).max(55).required(),
+  image: Joi.string().uri().required(),
+  description: Joi.string().min(10).max(450).required(),
   cookingDuration: durationSchema.required(),
   cleaningTime: durationSchema.required(),
   ingredients: Joi.array().items(ingredientSchema).min(1).required(),
