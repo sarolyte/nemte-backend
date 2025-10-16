@@ -2,8 +2,7 @@ import Joi from "joi";
 
 export const courseTypeSchema = Joi.string().valid(
     "appetizer",
-    "main course",
-    "side dish",
+    "side_dish",
     "dessert",
     "snack",
     "breakfast",
