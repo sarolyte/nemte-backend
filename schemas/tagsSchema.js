@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const courseTypeSchema = Joi.string().valid(
+export const courseTypeSchema = Joi.array().items(Joi.string().valid(
     "appetizer",
     "side_dish",
     "dessert",
@@ -8,9 +8,9 @@ export const courseTypeSchema = Joi.string().valid(
     "breakfast",
     "lunch",
     "dinner"
-).required();
+)).min(1).required();
 
-export const dietTypeSchema = Joi.string().valid(
+export const dietTypeSchema = Joi.array().items(Joi.string().valid(
     "vegan",
     "vegetarian",
     "pescatarian",
@@ -18,7 +18,7 @@ export const dietTypeSchema = Joi.string().valid(
     "meat",
     "lactose free",
     "gluten free"
-).required();
+)).min(1).required();
 
 export const cuisineTypeSchema = Joi.string().valid(
     "lithuanian",
